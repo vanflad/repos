@@ -19,3 +19,5 @@ command enter to execute a line
 or command option c to execute a whole chunk
 or command option n to execute chunk and move to next
 R markdown shortcut cheat sheet to find these
+
+This is my local conflict
