@@ -12,6 +12,7 @@ This is a line of text.
 - bullet 2
 
 ```{r, fig.width=3, fig.height=3}
+#this is a comment
 x <- rnorm(100)
 y <- rnorm(100)
 plot(x,y)
