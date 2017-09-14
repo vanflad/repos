@@ -10,3 +10,7 @@ always commit THEN push to Github for it to work!
 knitter does .Rmd -> .md -> .html
 
 'ml' stands for mark up language
+
+output: pdf_document is useful in R markdown
+
+command-option-i to create R code chunk in R markdown
