@@ -8,3 +8,5 @@ adding new stuff here
 always commit THEN push to Github for it to work!
 
 knitter does .Rmd -> .md -> .html
+
+'ml' stands for mark up language
