@@ -1,15 +1,15 @@
 ---
-title: "STATcm004"
-output: pdf_document
+title: "hw01_gapminder"
+output: Rmd
 ---
-# Level 1 header
+# Homework assignment #1
 
-## This is my header
+## September 19th, 2017
 
-This is a line of text.
+In this assignment I will:
 
-- bullet 1
-- bullet 2
+- Make a scatterplot
+- Make a summary table of x
 
 ```{r, fig.width=3, fig.height=3}
 #this is a comment
