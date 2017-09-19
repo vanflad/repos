@@ -1,3 +1,11 @@
+---
+title: "hw01_gapminder"
+output: Rmd
+---
+# Homework assignment #1
+  
+## September 19th, 2017
+
 library(tidyverse)
 library(gapminder)
 
@@ -22,4 +30,3 @@ typeof(TRUE)
 gapminder$country
 
 list(5, c(1, 2, 3), "hello")
-
