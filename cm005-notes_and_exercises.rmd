@@ -1,9 +1,7 @@
 ---
 title: "cm005 Notes and Exercises"
 date: "September 19, 2017"
-output: 
-    html_document:
-        toc: true
+output: github_document
 ---
 
 ```{r}
@@ -370,9 +368,19 @@ mutate(gapminder,
        gdpBill = round(gdp/1000000000, 1))
 ```
 
+(Note to self: need to load library(gapminder) and library(tidyverse) each time before running code on it)
+
 `transmute` works the same way, but drops all other variables. 
 
 __Exercise__: Make a new column called `cc` that pastes the country name followed by the continent, separated by a comma. (Hint: use the `paste` function with the `sep=", "` argument).
+
+```{r}
+mutate(gapminder, cc = paste(gapminder$country, gapminder$continent, sep = ", ")) #nailed it
+#note: cmd+alt+n to execute next code chunk
+mutate(gapminder, cc = paste(country, continent, sep = ", "))
+#don't need to specify dataframe$ because we already did before
+```
+
 
 #### `summarize` and `group_by`
 
@@ -388,6 +396,7 @@ Not very useful by itself! But, with the `group_by` function, the `summarize` fu
 gapminder %>% 
     group_by(country) %>% 
     summarize(mean_pop=mean(pop), sd_pop=sd(pop))
+#very useful for my fish data!!!!! ***** v. helpful summary stats
 ```
 
 The `group_by` function splits the tibble into parts -- in the above case, by country. Notice the "Groups" indicator in the following output:
@@ -414,6 +423,34 @@ out1 %>%
 
 __Exercise__: Find the minimum GDP per capita experienced by each country
 
+```{r}
+gapminder %>% 
+  group_by(country) %>% 
+  summarize(min_gdp = min(gdpPercap))
+```
+
+
 __Exercise__: How many years of record does each country have?
 
+```{r}
+gapminder %>%
+  group_by(country) %>% 
+  summarize(years = max(year) - min(year)) #wrong answer!
+gapminder %>%
+  group_by(country) %>% 
+  summarize(n_distinct(year)) #right answer
+```
+
+
 __Exercise__: Within Asia, what are the min and max life expectancies experienced in each year?
+
+```{r}
+gapminder %>%
+  group_by(continent == "Asia") %>% 
+  summarize(maxlife = max(lifeExp), minlife = min(lifeExp))
+#i didn't notice the 'each year' part of the question, oops.
+gapminder %>%
+  group_by(continent == "Asia") %>% 
+  group_by(year) %>% 
+  summarize(maxlife = max(lifeExp), minlife = min(lifeExp))
+```
