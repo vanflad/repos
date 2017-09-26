@@ -146,12 +146,19 @@ p2 + geom_point(aes(size=year, col=continent), alpha=0.25)
 p3 <- p2 + geom_point(aes(size=year, col=continent), alpha=0.25)
 p3 + scale_x_log10() #kinda figured out first part of question
 
+library(gapminder) #had to re-load since resuming class demo!
+library(tidyverse) #also needed for ggplot
+#can also go to top of document and run first code chunk
+
 p4 <- ggplot(gapminder, aes(x=log10(gdpPercap), y=lifeExp))
 p4 + geom_point(alpha=0.25)
 p4 + geom_point(aes(size=year, col=continent), alpha=0.25)
 #got it, it looks the same as before now! but done more simply.
-```
+#NOTE THIS IS HOW YOU GET DIFF COLOR AND SIZES!*****
+#apparently adding sizes is as easy to do as adding color!
 
+#can also use scale_x_log10(gdpPercap) as a diff way to do it
+```
 
 ## Continuation of `ggplot2`
 
@@ -160,6 +167,11 @@ Now that we've got the basics down pat, let's expand our flexibility by going th
 ### Regression curve
 
 __Exercise 5__: Make a plot of `year` (x) vs `lifeExp` (y), with points coloured by continent. Then, fit a regression line to each continent, without the error bars. If you can, try piping the data frame into the `ggplot` function.
+
+```{r}
+
+```
+
 
 ### Facetting
 
