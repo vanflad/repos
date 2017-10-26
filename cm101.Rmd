@@ -1,0 +1,187 @@
+---
+title: "cm101_live_coding"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R for strings
+
+```{r}
+my_string <- "Surrounded by quotes. That's cool."
+my_string
+
+my_string2 <- 'This is another string containing "double quotes". That is cool.'
+my_string2
+
+my_string3 <- "A slash \\"
+my_string3
+```
+
+### Homework
+
+How do I "string" a single slash?
+
+### Challenge warm up
+
+True or False? Why?
+
+```{r}
+my_string4 <- `my_string`
+my_string5 <- 'my_string'
+my_string6 <- "my_string"
+
+my_string4==my_string5
+my_string5==my_string6
+
+my_string4
+```
+
+```{r}
+# devtools::install_github("joeybernhardt/singer")
+library(singer)
+places <- unique(singer_locations$city)
+
+str(places)
+nchar(c("City", "double", "a very long string"))
+nchar(c("", NA, " ", "     ", " a ", "  ", "\t"))
+```
+
+```{r}
+#devtools::install_github("tidyverse/stringr")
+#devtools::install_github("tidyverse/glue")
+library(tidyverse)
+library(stringr)
+library(glue)
+```
+
+glueing `glue()` 
+
+```{r}
+My_name <- "Vanessa"
+My_age <- 24
+My_color <- "Blue"
+glue("My name is {My_name},", " My age two years ago was {My_age-2}.")
+```
+
+```{r}
+paste0("My name is ",My_name,", My age two years ago was ", My_age-2)
+```
+
+indentation
+
+```{r}
+glue("My name is 
+     {My_name},
+My age two years ago was
+     {My_age-2}.
+     ") #can't get the indentation to work... don't know why.
+```
+
+```{r}
+glue("
+My name is
+     {My_name},
+My age two years ago was
+     {My_age - 2}.
+",
+My_name="Another name",
+My_age=10) #indentation works perfectly fine here for some reason
+```
+
+## Challenge
+
+Phrase: Today is Wednesday, October 29, 1986 and the sun shines.
+
+Sys.Date() prints out "2017-10-24"
+glue()
+
+```{r}
+phrase <- "Today is {Today_date} and the sun shines"
+glue(phrase,
+     Today_date=Sys.Date())
+```
+
+```{r}
+glue(phrase,
+     Today_date=format(Sys.Date(), "%A, %B, %d, %Y"))
+```
+
+`glue_data`
+
+```{r}
+singer_locations %>%
+  glue_data("{artist_name} is from {city}.") %>%
+  head()
+```
+
+### Stringr
+
+```{r}
+getNamespaceExports("stringr")
+```
+
+```{r}
+getNamespaceExports("stringr") %>%
+  str_view("str_") #error for some reason!
+```
+
+```{r}
+getNamespaceExports("stringr") %>%
+  str_subset("str_") #this one works fine... weird.
+```
+
+### Challenge
+
+```{r}
+places <- unique(singer_locations$city)
+```
+
+And, let's get all the places containing the string "york"
+
+```{r}
+places %>%
+  str_to_lower() %>%
+  str_subset("york")
+```
+
+### Regular expressions
+
+```{r}
+places %>%
+  str_subset("[Yyb]ork")
+
+places %>%
+  str_subset(coll("york", ignore_case = TRUE))
+```
+
+```{r}
+places %>%
+  str_subset("York$")
+```
+
+```{r}
+places %>%
+  str_subset("^York")
+```
+
+### Challenge
+
+Get all places containing some digits
+
+```{r}
+"[:digit:]"
+places %>%
+  str_subset("[:digit:]")
+
+places %>%
+  str_subset("B.a?")
+
+places %>%
+  str_subset("B.a*")
+
+#many different regular expressions that you can use here
+```
+
