@@ -1,0 +1,132 @@
+---
+title: "cm103"
+output: html_document
+---
+
+##indexing
+
+Missed this part but it's basic stuff anyways.
+
+##lists
+
+```{r}
+x <- list(1:3, c("four", "five"))
+y <- list(logical=TRUE, integer=4L, double=4*1.2, character="character")
+z <- list(letters[26:22], transcendental=c(pi, exp(1)), f=function(x) x^2)
+```
+
+## challenge, in list y, pull out the second and third elements, in list z pull out all the transcendental numbers
+
+```{r}
+y[2:3]
+z["transcendental"]
+z[2] #alternative
+z$transcendental #another way
+```
+
+Ooh it took two whole seconds to figure out.
+
+```{r}
+typeof(z["transcendental"])
+z[["transcendental"]]
+```
+
+```{r}
+y[["double"]]
+y["double"]
+```
+
+## consider how to square the integers 1 through n
+
+```{r}
+n <- 5
+
+res <- rep(NA_integer_, n)
+for (i in seq_len(n)){
+  res[i] <- i^2
+}
+#fill with NAs to be replaced by values
+
+res
+
+(1:n)^2
+```
+
+```{r}
+v_doub <- c(1.2, 2.4, 3.6, 4.8)
+
+exp(v_doub)
+
+l_doub <- as.list(v_doub)
+
+exp(l_doub)
+
+library(purrr)
+#also available within tidyverse
+
+map_dbl(l_doub, exp)
+```
+
+```{r}
+library(stringr)
+#also within tidyverse, used it last class
+fruit
+str(fruit)
+```
+
+## use a map function and a stringr function to split all the fruits that have two words in them
+
+```{r}
+getNamespaceExports("stringr") %>%
+  str_subset("str_")
+
+?str_split()
+?map_chr()
+
+#map_chr(fruit, str_split(fruit[], " "))
+
+#str_split(map_chr(fruit), " ")
+
+#map_chr(fruit, str_split, " ")
+
+fruit %>%
+  map(str_split, " ")
+
+map(.x = fruit, .f = function(x) str_split(x, pattern = " "))
+```
+
+```{r}
+fruit %>%
+  map_chr(str_to_upper)
+```
+
+```{r}
+#install.packages("repurrrsive")
+library(repurrrsive)
+#install.packages("listviewer")
+library(listviewer)
+library(purrr)
+
+str(gh_users)
+
+gh_users[[1]]
+```
+
+```{r}
+jsonedit(gh_users)
+```
+
+```{r}
+map(gh_users, "login")
+
+gh_users %>%
+  map(18)
+
+x <- map(gh_users, `[`, c("login", "name", "id", "location"))
+x
+
+y <- map(gh_users, magrittr::extract, c("login", "name"))
+y
+
+#can map your own functions over a dataframe
+```
